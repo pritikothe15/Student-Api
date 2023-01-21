@@ -54,8 +54,38 @@ app.post('/find-by-roll',async(req,res)=>{
     res.json({
         success:true,
         data:student
+    }) 
+})
+
+app.post('/update-student', async(req,res)=>{
+    const {roll, fullName ,mobile} = req.body;
+
+    const result = await Student.updateOne(
+        { 
+            roll:roll
+        },
+        {
+            fullName: fullName,
+            mobile:mobile
+        })
+
+        res.send({
+            success:true,
+            message:"student updated successfully"
+        })
+})
+
+app.post('/delete-student',async(req,res)=>{
+    const {roll} =req.body;
+    const result = await Student.deleteOne({
+        roll:roll
     })
-   
+    
+    res.send({
+        success:true,
+        message:"user deleted successfully"
+    })
+
 })
 
 app.listen(5000,()=>{
