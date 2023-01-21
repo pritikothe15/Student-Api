@@ -34,7 +34,28 @@ app.post('/create-student',async(req,res)=>{
         success: true,
         data : savedStudent
     })
+})
 
+app.get('/all-students',async(req, res)=>{
+    const students = await Student.find()
+    res.send({
+        success:true,
+        data:students
+    })
+})
+
+app.post('/find-by-roll',async(req,res)=>{
+    const {roll} = req.body ;
+
+    const student = await Student.findOne({
+        roll:roll 
+    });
+
+    res.json({
+        success:true,
+        data:student
+    })
+   
 })
 
 app.listen(5000,()=>{
